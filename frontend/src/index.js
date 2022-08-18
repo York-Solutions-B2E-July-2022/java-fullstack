@@ -5,18 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
-import reducer from './modules/reducer'
+import reducer, {getThreads} from './modules/reducer'
 const handleAsync = function(reduxApi){
-    return (next)=>{
+    return (reducer)=>{
         return (action)=>{
            if(typeof action == 'function'){
               return action(reduxApi.dispatch, reduxApi.getState)
            }
-           next(action);
+
+           reducer(action);
         }
     }
 }
-const store = createStore(reducer, compose(applyMiddleware(handleAsync)));
+
+const store = createStore(reducer, compose(applyMiddleware(handleAsync)) );
+store.dispatch(getThreads())
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
