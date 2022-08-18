@@ -21,14 +21,33 @@ public class AuthService {
         this.repo = repo;
         this.tokenMap = new HashMap<>();
     }
-
+    public UUID checkAuth(UUID token){
+        if(!tokenMap.containsKey(token)){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+        return tokenMap.get(token);
+    }
     public UUID login(String username, String password){
         Optional<UserAccount> maybeUser = this.repo.findByUsernameAndPassword(username, password);
         if(maybeUser.isEmpty())
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         UUID token = UUID.randomUUID();
         UserAccount user = maybeUser.get();
         this.tokenMap.put(token, user.id);
         return token;
+    }
+    public void logout(UUID token){
+        if(!tokenMap.containsKey(token))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "TOKEN DOES NOT EXIST");
+        tokenMap.remove(token);
+
+    }
+
+    public void signup(String username, String password) {
+        if(repo.existsByUsername(username)) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
+        }
+        UserAccount newuser = new UserAccount(username, password);
+        repo.save(newuser);
     }
 }
