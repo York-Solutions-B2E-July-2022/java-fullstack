@@ -26,8 +26,7 @@ export function login(username, password){
     return async ( dispatch, getState)=>{
         const response = await fetch(
             `${BASE_URL}/login?username=${username}&password=${password}`)
-
-        if(response.statusCode > 200){
+        if(response.status > 200){
            dispatch(/* LOGIN FAILED*/)
         }
         let data = await response.text();
