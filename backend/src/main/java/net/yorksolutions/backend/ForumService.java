@@ -6,6 +6,7 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,7 +31,10 @@ public class ForumService {
     public void edit(ForumThread thread){
         this.repo.save(thread);
     }
-    public void delete(){
-
+    public void delete(Long id){
+        Optional<ForumThread> thread = this.repo.findById(id);
+        if(thread.isEmpty())
+            throw new ResponseStatusException(HttpStatus.GONE, "Id does not exist");
+        this.repo.delete(thread.get());
     }
 }

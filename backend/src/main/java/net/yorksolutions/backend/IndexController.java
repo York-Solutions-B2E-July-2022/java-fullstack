@@ -54,4 +54,8 @@ public class IndexController {
     public void editForumThreads(@RequestBody ForumThread thread){
         this.forumService.edit(thread);
     }
+    @DeleteMapping("/deleteForumThreads")
+    public void deleteForumThreads(@RequestParam Long id){
+        this.forumService.delete(id);
+    }
 }
