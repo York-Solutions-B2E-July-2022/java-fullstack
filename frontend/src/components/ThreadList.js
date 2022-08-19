@@ -9,7 +9,7 @@ export default ()=>{
     //    return (<p key={idx}>{t.title}</p>)
     //})
     function onClick(id){
-        dispatch({type: SHOW_THREAD/*TODO*/, data: id})
+        dispatch({type: SHOW_THREAD, data: id})
     }
     return (
         <ListGroup>

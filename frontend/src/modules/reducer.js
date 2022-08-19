@@ -11,7 +11,7 @@ const STORE_TOKEN = "STORE_TOKEN";
 const REMOVE_TOKEN = "REMOVE_TOKEN";
 const STORE_THREADS = "STORE_THREADS";
 export const SHOW_THREAD = "SHOW_THREAD";
-
+export const CLEAR_SELECTION = "CLEAR_SELECTION";
 export default function(state=initialState, action){
     state.error = null;
     switch (action.type) {
@@ -23,6 +23,9 @@ export default function(state=initialState, action){
         }
         case SHOW_THREAD:{
             return {...state, selection: state.threads.find(t => t.id == action.data)}
+        }
+        case CLEAR_SELECTION: {
+            return {...state, selection: null}
         }
         case REMOVE_TOKEN:{
             return {...state, token: null}
