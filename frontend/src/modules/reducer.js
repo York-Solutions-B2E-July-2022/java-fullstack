@@ -99,8 +99,8 @@ export function getThreads(){
 export function editThread(id, title, description){
     return async (dispatch, getState)=>{
         let thread = getState().selection;
-        thread.title = title;
-        thread.description = description;
+        thread.title = title? title: thread.title;
+        thread.description = description? description: thread.description;
         const res = await fetch(`${BASE_URL}/editForumThreads`, {
             method: "POST",
             body: JSON.stringify(thread),
@@ -112,6 +112,7 @@ export function editThread(id, title, description){
             let data = await res.json();
             return dispatch({type: FAILED, data: data.message})
         }
+        dispatch(getThreads())
 
     }
 }
