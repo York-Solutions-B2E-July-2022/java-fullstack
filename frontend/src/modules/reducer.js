@@ -99,9 +99,10 @@ export function getThreads(){
 export function editThread( title, description){
     return async (dispatch, getState)=>{
         let thread = getState().selection;
+        let token = getState().token;
         thread.title = title? title: thread.title;
         thread.description = description? description: thread.description;
-        const res = await fetch(`${BASE_URL}/editForumThreads`, {
+        const res = await fetch(`${BASE_URL}/editForumThreads?token=${token}`, {
             method: "POST",
             body: JSON.stringify(thread),
             headers: {
@@ -119,8 +120,8 @@ export function editThread( title, description){
 export function deleteThread(){
     return async (dispatch, getState)=>{
         let thread = getState().selection;
-
-        const res = await fetch(`${BASE_URL}/deleteForumThreads?id=${thread.id}`, {
+        let token = getState().token;
+        const res = await fetch(`${BASE_URL}/deleteForumThreads?token=${token}&id=${thread.id}`, {
             method: "DELETE",
         })
         if(!res.ok){

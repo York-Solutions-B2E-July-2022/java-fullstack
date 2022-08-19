@@ -51,11 +51,13 @@ public class IndexController {
     }
 
     @PostMapping("/editForumThreads")
-    public void editForumThreads(@RequestBody ForumThread thread){
+    public void editForumThreads(@RequestParam UUID token, @RequestBody ForumThread thread){
+        this.authService.checkAuth(token);
         this.forumService.edit(thread);
     }
     @DeleteMapping("/deleteForumThreads")
-    public void deleteForumThreads(@RequestParam Long id){
+    public void deleteForumThreads(@RequestParam UUID token, @RequestParam Long id){
+        this.authService.checkAuth(token);
         this.forumService.delete(id);
     }
 }
