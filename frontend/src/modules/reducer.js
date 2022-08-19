@@ -96,3 +96,22 @@ export function getThreads(){
         dispatch({type: STORE_THREADS, data})
     }
 }
+export function editThread(id, title, description){
+    return async (dispatch, getState)=>{
+        let thread = getState().selection;
+        thread.title = title;
+        thread.description = description;
+        const res = await fetch(`${BASE_URL}/editForumThreads`, {
+            method: "POST",
+            body: JSON.stringify(thread),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        if(!res.ok){
+            let data = await res.json();
+            return dispatch({type: FAILED, data: data.message})
+        }
+
+    }
+}

@@ -1,17 +1,18 @@
 import {Button, ButtonGroup, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {CLEAR_SELECTION} from "../modules/reducer";
+import {CLEAR_SELECTION, editThread} from "../modules/reducer";
 import {useState} from "react";
 
 export default ()=>{
     let thread = useSelector(s => s.selection)
+    let token = useSelector(s => s.token)
     let [editing, setEditing ]=  useState(false)
     let [ title, setTitle] = useState(thread? thread.title: "" )
     let [ description, setDescription] = useState(thread? thread.description: "" )
     const dispatch = useDispatch();
     function onSubmit(){
         console.log("click")
-        dispatch(/*TODO edit thread*/)
+        dispatch(editThread(undefined, title, description))
         onClose();
     }
     function onClose(){
@@ -47,7 +48,7 @@ export default ()=>{
                 <ButtonGroup>
                     { editing ?
                         <Button onClick={ () => onSubmit()}> Submit</Button>:
-                        <Button type={"button"} onClick={e=> setEditing(true) }>Edit</Button> }
+                        <Button type={"button"} onClick={e=> setEditing(true) } disabled={!token}>Edit</Button> }
 
                     <Button onClick={e=> onClose()}>Close</Button>
                 </ButtonGroup>
