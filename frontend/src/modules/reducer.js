@@ -116,3 +116,18 @@ export function editThread( title, description){
 
     }
 }
+export function deleteThread(){
+    return async (dispatch, getState)=>{
+        let thread = getState().selection;
+
+        const res = await fetch(`${BASE_URL}/deleteForumThreads?id=${thread.id}`, {
+            method: "DELETE",
+        })
+        if(!res.ok){
+            let data = await res.json();
+            return dispatch({type: FAILED, data: data.message})
+        }
+        dispatch(getThreads())
+
+    }
+}

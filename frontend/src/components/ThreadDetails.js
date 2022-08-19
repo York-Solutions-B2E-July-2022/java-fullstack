@@ -1,6 +1,6 @@
 import {Button, ButtonGroup, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {CLEAR_SELECTION, editThread} from "../modules/reducer";
+import {CLEAR_SELECTION, deleteThread, editThread} from "../modules/reducer";
 import {useState} from "react";
 
 export default ()=>{
@@ -14,6 +14,10 @@ export default ()=>{
         console.log("click")
         dispatch(editThread(title, description))
         onClose();
+    }
+    function onDelete(){
+        dispatch(deleteThread())
+        onClose()
     }
     function onClose(){
         setEditing(false);
@@ -50,6 +54,7 @@ export default ()=>{
                         <Button onClick={ () => onSubmit()}> Submit</Button>:
                         <Button type={"button"} onClick={e=> setEditing(true) } disabled={!token}>Edit</Button> }
 
+                    <Button variant={"danger"} onClick={()=> onDelete()} disabled={!token}> Delete </Button>
                     <Button onClick={e=> onClose()}>Close</Button>
                 </ButtonGroup>
             </Modal.Footer>
