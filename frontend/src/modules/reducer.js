@@ -96,7 +96,7 @@ export function getThreads(){
         dispatch({type: STORE_THREADS, data})
     }
 }
-export function editThread(id, title, description){
+export function editThread( title, description){
     return async (dispatch, getState)=>{
         let thread = getState().selection;
         thread.title = title? title: thread.title;

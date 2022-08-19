@@ -12,7 +12,7 @@ export default ()=>{
     const dispatch = useDispatch();
     function onSubmit(){
         console.log("click")
-        dispatch(editThread(undefined, title, description))
+        dispatch(editThread(title, description))
         onClose();
     }
     function onClose(){
