@@ -12,6 +12,7 @@ import java.util.UUID;
 public class ForumThread {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @JsonProperty
     Long id;
     @JsonProperty
     UUID creator;
