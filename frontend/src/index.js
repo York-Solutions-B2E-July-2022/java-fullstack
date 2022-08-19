@@ -17,8 +17,8 @@ const handleAsync = function(reduxApi){
         }
     }
 }
-
-const store = createStore(reducer, compose(applyMiddleware(handleAsync)) );
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const store = createStore(reducer, composeEnhancers(applyMiddleware(handleAsync)) );
 store.dispatch(getThreads())
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
