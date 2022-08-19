@@ -19,19 +19,21 @@ function App() {
     if (error){
         errorMessage = <p>{error}</p>
     }
+    let content = null;
     if(token){
-        return (
+        content =(
             <>
                 {errorMessage}
-                <Logout></Logout>
+                <Row>
+                    <Logout></Logout>
+
+                </Row>
                 <CreateThread></CreateThread>
-                <ThreadList></ThreadList>
             </>
         );
     } else {
-        return (<>
+        content = (<>
             {errorMessage}
-            <Container>
                 <Row>
                     <Col>
                         <Login></Login>
@@ -40,14 +42,19 @@ function App() {
                         <SignUp></SignUp>
                     </Col>
                 </Row>
-                <Row className={"mt-2"}>
-                    <ThreadList></ThreadList>
-                </Row>
-            </Container>
-            <ThreadDetails></ThreadDetails>
         </>)
     }
-
+    return (
+        <>
+        <Container>
+            {content}
+            <Row className={"mt-2"}>
+                <ThreadList></ThreadList>
+            </Row>
+        </Container>
+        <ThreadDetails></ThreadDetails>
+        </>
+    )
 }
 
 export default App;
