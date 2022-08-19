@@ -2,12 +2,16 @@ const initialState = {
     token: null,
     error: null,
     threads: [],
+    selection: null,
 }
+const BASE_URL = 'http://localhost:8080'
+
 const FAILED = "FAILED";
 const STORE_TOKEN = "STORE_TOKEN";
 const REMOVE_TOKEN = "REMOVE_TOKEN";
 const STORE_THREADS = "STORE_THREADS";
-const BASE_URL = 'http://localhost:8080'
+export const SHOW_THREAD = "SHOW_THREAD";
+
 export default function(state=initialState, action){
     state.error = null;
     switch (action.type) {
@@ -16,6 +20,9 @@ export default function(state=initialState, action){
         }
         case STORE_THREADS:{
             return {...state, threads: action.data}
+        }
+        case SHOW_THREAD:{
+            return {...state, selection: state.threads.find(t => t.id == action.data)}
         }
         case REMOVE_TOKEN:{
             return {...state, token: null}
