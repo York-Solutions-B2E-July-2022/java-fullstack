@@ -27,8 +27,8 @@ public class ForumService {
     }
     public void getOne(){}
 
-    public void edit(){
-
+    public void edit(ForumThread thread){
+        this.repo.save(thread);
     }
     public void delete(){
 
