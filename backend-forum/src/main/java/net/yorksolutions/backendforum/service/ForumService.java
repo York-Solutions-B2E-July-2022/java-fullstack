@@ -19,28 +19,16 @@ import java.util.UUID;
 @Service
 public class ForumService {
     private final ForumThreadRepo repo;
-    private final RestTemplate restTemplate;
-    @Value("${net.yorksolutions.backendforum.auth_url}")
-    private String AUTH_URL ;
+
     @Autowired
     public ForumService(@NonNull ForumThreadRepo repo){
 
         this.repo = repo;
-        this.restTemplate = new RestTemplate();
+
     }
 
-    public Boolean checkAuth(UUID token){
-        try {
-            ResponseEntity<Void> response= this.restTemplate.getForEntity(AUTH_URL + "/checkAuth/"+ token, Void.class);
-            return true;
-        } catch (RestClientException e){
-            return false;
-        }
-    }
-    public UserModel getUserInfo(UUID token){
-        ResponseEntity<UserModel> response= this.restTemplate.getForEntity(AUTH_URL + "/userInfo/"+ token, UserModel.class);
-        return response.getBody();
-    }
+
+
     public void create(UUID creator, String title, String description){
         if(repo.existsByTitle(title))
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Forum with title already exists");

@@ -1,6 +1,7 @@
 package net.yorksolutions.backendforum;
 
 import net.yorksolutions.backendforum.models.ForumThread;
+import net.yorksolutions.backendforum.service.AuthService;
 import net.yorksolutions.backendforum.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,11 @@ import java.util.UUID;
 @RequestMapping("/")
 public class IndexController {
     private final ForumService forumService;
+    private final AuthService authService;
     @Autowired
-    public IndexController(@NonNull ForumService forumService){
+    public IndexController(@NonNull ForumService forumService, @NonNull AuthService authService){
         this.forumService = forumService;
+        this.authService = authService;
     }
     @GetMapping("/hello")
     public String hello(){
@@ -28,10 +31,10 @@ public class IndexController {
             @RequestParam UUID token,
             @RequestParam String title,
             @RequestParam String description){
-        if(!this.forumService.checkAuth(token))
+        if(!this.authService.checkAuth(token))
            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
-        UUID loggedUser = this.forumService.getUserInfo(token).id;
+        UUID loggedUser = this.authService.getUserInfo(token).id;
         this.forumService.create(loggedUser, title, description);
     }
 
@@ -42,13 +45,13 @@ public class IndexController {
 
     @PostMapping("/editForumThreads")
     public void editForumThreads(@RequestParam UUID token, @RequestBody ForumThread thread){
-        if(!this.forumService.checkAuth(token))
+        if(!this.authService.checkAuth(token))
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         this.forumService.edit(thread);
     }
     @DeleteMapping("/deleteForumThreads")
     public void deleteForumThreads(@RequestParam UUID token, @RequestParam Long id){
-        if(!this.forumService.checkAuth(token))
+        if(!this.authService.checkAuth(token))
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         this.forumService.delete(id);
     }
