@@ -5,7 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
-import reducer, {getThreads} from './modules/reducer'
+import reducer from './modules/reducer'
+import { getThreads } from './modules/requests'
 const handleAsync = function(reduxApi){
     return (reducer)=>{
         return (action)=>{

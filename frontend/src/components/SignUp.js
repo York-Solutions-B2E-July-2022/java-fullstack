@@ -1,7 +1,7 @@
 import {Button, Form, FormGroup} from "react-bootstrap";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {signup} from "../modules/reducer";
+import {signup} from "../modules/requests";
 
 export default ()=>{
     const dispatch = useDispatch();

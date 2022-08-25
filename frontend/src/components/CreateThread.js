@@ -1,7 +1,7 @@
 import {Button, Form, FormGroup} from "react-bootstrap";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
-import {createThread} from "../modules/reducer";
+import {createThread} from "../modules/requests";
 export default ()=>{
     const dispatch = useDispatch();
     let [ title, setTitle] = useState("");

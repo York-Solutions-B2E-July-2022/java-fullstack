@@ -1,6 +1,7 @@
 import {Button, ButtonGroup, Form, Modal} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {CLEAR_SELECTION, deleteThread, editThread} from "../modules/reducer";
+import {CLEAR_SELECTION} from "../modules/reducer";
+import {editThread, deleteThread} from "../modules/requests"
 import {useState} from "react";
 
 export default ()=>{
