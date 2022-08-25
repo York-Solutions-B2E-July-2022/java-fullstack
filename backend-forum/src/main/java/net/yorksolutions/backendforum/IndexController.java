@@ -1,6 +1,10 @@
 package net.yorksolutions.backendforum;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -22,7 +26,7 @@ public class IndexController {
             @RequestParam String title,
             @RequestParam String description){
         if(this.forumService.checkAuth(token)){
-
+            UUID loggedUser = this.forumService.getUserInfo(token).id;
             this.forumService.create(loggedUser, title, description);
 
         } else {

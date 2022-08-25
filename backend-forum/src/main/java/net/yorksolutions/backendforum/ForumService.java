@@ -1,10 +1,12 @@
 package net.yorksolutions.backendforum;
 
+import net.yorksolutions.backendforum.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,6 +32,10 @@ public class ForumService {
         } catch (RestClientException e){
             return false;
         }
+    }
+    public UserModel getUserInfo(UUID token){
+        ResponseEntity<UserModel> response= this.restTemplate.getForEntity(AUTH_URL + "/userInfo/"+ token, UserModel.class);
+        return response.getBody();
     }
     public void create(UUID creator, String title, String description){
         if(repo.existsByTitle(title))
