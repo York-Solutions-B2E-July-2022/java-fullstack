@@ -25,28 +25,28 @@ public class IndexController {
             @RequestParam UUID token,
             @RequestParam String title,
             @RequestParam String description){
-        if(this.forumService.checkAuth(token)){
-            UUID loggedUser = this.forumService.getUserInfo(token).id;
-            this.forumService.create(loggedUser, title, description);
+        if(!this.forumService.checkAuth(token))
+           throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 
-        } else {
-           throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT);
-        }
+        UUID loggedUser = this.forumService.getUserInfo(token).id;
+        this.forumService.create(loggedUser, title, description);
     }
 
-    //@GetMapping("/forumThreads")
-    //public Iterable<ForumThread> forumThreads(){
-    //    return this.forumService.getList();
-    //}
+    @GetMapping("/forumThreads")
+    public Iterable<ForumThread> forumThreads(){
+        return this.forumService.getList();
+    }
 
-    //@PostMapping("/editForumThreads")
-    //public void editForumThreads(@RequestParam UUID token, @RequestBody ForumThread thread){
-    //    this.authService.checkAuth(token);
-    //    this.forumService.edit(thread);
-    //}
-    //@DeleteMapping("/deleteForumThreads")
-    //public void deleteForumThreads(@RequestParam UUID token, @RequestParam Long id){
-    //    this.authService.checkAuth(token);
-    //    this.forumService.delete(id);
-    //}
+    @PostMapping("/editForumThreads")
+    public void editForumThreads(@RequestParam UUID token, @RequestBody ForumThread thread){
+        if(!this.forumService.checkAuth(token))
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        this.forumService.edit(thread);
+    }
+    @DeleteMapping("/deleteForumThreads")
+    public void deleteForumThreads(@RequestParam UUID token, @RequestParam Long id){
+        if(!this.forumService.checkAuth(token))
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        this.forumService.delete(id);
+    }
 }
