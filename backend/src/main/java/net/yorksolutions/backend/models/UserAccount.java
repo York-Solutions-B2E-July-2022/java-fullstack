@@ -17,6 +17,7 @@ public class UserAccount {
     String password;
 
     @OneToOne
+    @JsonProperty
     UserProfile userProfile;
     public UserAccount(){
 

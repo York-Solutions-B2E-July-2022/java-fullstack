@@ -1,5 +1,7 @@
 package net.yorksolutions.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +13,9 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
+    @JsonProperty
     String firstName;
+    @JsonProperty
     String lastName;
 
     public UserProfile(){}
