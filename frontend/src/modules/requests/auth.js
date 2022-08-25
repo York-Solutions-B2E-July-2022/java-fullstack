@@ -24,9 +24,23 @@ export function logout(){
         dispatch({type: REMOVE_TOKEN})
     }
 }
-export function signup(username, password){
+export function signup(username, password, firstName, lastName){
     return async (dispatch, getState) => {
-        const res = await fetch(`${BASE_URL}/signup?username=${username}&password=${password}`)
+        const res = await fetch(
+            `${BASE_URL}/signup`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    username,
+                    password,
+                    firstName,
+                    lastName,
+                }),
+                header: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
         if(!res.ok) {
             let data = await res.json();
             return dispatch({type: FAILED, data: data.message})
