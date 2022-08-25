@@ -36,7 +36,7 @@ export function signup(username, password, firstName, lastName){
                     firstName,
                     lastName,
                 }),
-                header: {
+                headers: {
                     "Content-Type": "application/json"
                 }
             }
