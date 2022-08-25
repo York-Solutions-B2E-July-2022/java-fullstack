@@ -1,5 +1,7 @@
-package net.yorksolutions.backend;
+package net.yorksolutions.backend.service;
 
+import net.yorksolutions.backend.models.UserAccount;
+import net.yorksolutions.backend.models.repo.UserAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class AuthService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         UUID token = UUID.randomUUID();
         UserAccount user = maybeUser.get();
-        this.tokenMap.put(token, user.id);
+        this.tokenMap.put(token, user.getId());
         return token;
     }
     public void logout(UUID token){
@@ -44,13 +46,7 @@ public class AuthService {
 
     }
 
-    public void signup(String username, String password) {
-        if(repo.existsByUsername(username)) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
-        }
-        UserAccount newuser = new UserAccount(username, password);
-        repo.save(newuser);
-    }
+
 
     public UserAccount userInfo(UUID token) {
         UUID loggedUser = this.tokenMap.get(token);

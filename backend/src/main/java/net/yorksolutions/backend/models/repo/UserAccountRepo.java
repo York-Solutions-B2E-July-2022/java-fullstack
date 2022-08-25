@@ -1,5 +1,6 @@
-package net.yorksolutions.backend;
+package net.yorksolutions.backend.models.repo;
 
+import net.yorksolutions.backend.models.UserAccount;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,11 +1,8 @@
-package net.yorksolutions.backend;
+package net.yorksolutions.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -18,11 +15,21 @@ public class UserAccount {
     String username;
     @JsonProperty
     String password;
+
+    @OneToOne
+    UserProfile userProfile;
     public UserAccount(){
 
     }
     public UserAccount(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+    public UUID getId(){
+       return this.id;
+    }
+
+    public void setUserProfile(UserProfile userProfile){
+        this.userProfile = userProfile;
     }
 }
