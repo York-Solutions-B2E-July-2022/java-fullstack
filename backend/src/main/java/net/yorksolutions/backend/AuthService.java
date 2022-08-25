@@ -51,4 +51,13 @@ public class AuthService {
         UserAccount newuser = new UserAccount(username, password);
         repo.save(newuser);
     }
+
+    public UserAccount userInfo(UUID token) {
+        UUID loggedUser = this.tokenMap.get(token);
+        Optional<UserAccount> maybeUser = repo.findById(loggedUser);
+        if(maybeUser.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.GONE);
+        }
+        return maybeUser.get();
+    }
 }

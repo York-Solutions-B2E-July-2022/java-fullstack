@@ -38,6 +38,10 @@ public class IndexController {
     public ResponseEntity<Void> checkAuth(@PathVariable UUID token){
         return this.authService.checkAuth(token);
     }
+    @GetMapping("/userInfo/{token}")
+    public UserAccount userInfo(@PathVariable UUID token){
+        return this.authService.userInfo(token);
+    }
 
 
 }
