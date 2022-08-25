@@ -1,5 +1,7 @@
-package net.yorksolutions.backendforum;
+package net.yorksolutions.backendforum.service;
 
+import net.yorksolutions.backendforum.models.ForumThread;
+import net.yorksolutions.backendforum.models.repo.ForumThreadRepo;
 import net.yorksolutions.backendforum.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

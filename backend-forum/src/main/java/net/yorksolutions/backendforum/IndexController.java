@@ -1,5 +1,7 @@
 package net.yorksolutions.backendforum;
 
+import net.yorksolutions.backendforum.models.ForumThread;
+import net.yorksolutions.backendforum.service.ForumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;

@@ -1,4 +1,4 @@
-package net.yorksolutions.backendforum;
+package net.yorksolutions.backendforum.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
