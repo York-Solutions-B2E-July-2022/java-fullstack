@@ -20,7 +20,7 @@ public class IndexController {
     public String hello(){
         return "Hello";
     }
-    @GetMapping("/create")
+    @GetMapping("/createForumThread")
     public void createForumThread(
             @RequestParam UUID token,
             @RequestParam String title,
