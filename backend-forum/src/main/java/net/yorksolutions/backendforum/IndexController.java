@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/")
 public class IndexController {
     private final ForumService forumService;
