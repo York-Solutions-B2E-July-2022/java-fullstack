@@ -2,8 +2,10 @@ package net.yorksolutions.backendforum;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -12,10 +14,18 @@ import java.util.UUID;
 @Service
 public class ForumService {
     private final ForumThreadRepo repo;
-
+    private final RestTemplate restTemplate;
+    private final String AUTH_URL = "http://localhost:8080";
     @Autowired
     public ForumService(@NonNull ForumThreadRepo repo){
+
         this.repo = repo;
+        this.restTemplate = new RestTemplate();
+    }
+
+    public Boolean checkAuth(UUID token){
+        ResponseEntity<Void> response= this.restTemplate.getForEntity(AUTH_URL + "/checkAuth", Void.class);
+        return response.getStatusCode() == HttpStatus.OK;
     }
     public void create(UUID creator, String title, String description){
         if(repo.existsByTitle(title))
