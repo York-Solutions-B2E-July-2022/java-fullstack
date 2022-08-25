@@ -2,6 +2,7 @@ package net.yorksolutions.backendforum;
 
 import net.yorksolutions.backendforum.models.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
@@ -17,7 +18,8 @@ import java.util.UUID;
 public class ForumService {
     private final ForumThreadRepo repo;
     private final RestTemplate restTemplate;
-    private final String AUTH_URL = "http://localhost:8080";
+    @Value("${net.yorksolutions.backendforum.auth_url}")
+    private String AUTH_URL ;
     @Autowired
     public ForumService(@NonNull ForumThreadRepo repo){
 
