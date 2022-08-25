@@ -1,4 +1,4 @@
-package net.yorksolutions.backend;
+package net.yorksolutions.backendforum;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

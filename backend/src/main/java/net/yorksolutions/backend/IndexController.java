@@ -11,11 +11,9 @@ import java.util.UUID;
 public class IndexController {
 
     private final AuthService authService;
-    private final ForumService forumService;
     @Autowired
-    public IndexController(@NonNull AuthService authService, @NonNull ForumService forumService){
+    public IndexController(@NonNull AuthService authService){
         this.authService = authService;
-        this.forumService = forumService;
     }
 
     @GetMapping("/hello")
@@ -35,29 +33,10 @@ public class IndexController {
     public void signup(@RequestParam String username, @RequestParam String password){
         this.authService.signup(username, password);
     }
-
-    @GetMapping("/createForumThread")
-    public void createForumThread(
-            @RequestParam UUID token,
-            @RequestParam String title,
-            @RequestParam String description){
-        UUID loggedUser = this.authService.checkAuth(token);
-        this.forumService.create(loggedUser, title, description);
-    }
-
-    @GetMapping("/forumThreads")
-    public Iterable<ForumThread> forumThreads(){
-        return this.forumService.getList();
-    }
-
-    @PostMapping("/editForumThreads")
-    public void editForumThreads(@RequestParam UUID token, @RequestBody ForumThread thread){
+    @GetMapping("/checkAuth/{token}")
+    public void checkAuth(@PathVariable UUID token){
         this.authService.checkAuth(token);
-        this.forumService.edit(thread);
     }
-    @DeleteMapping("/deleteForumThreads")
-    public void deleteForumThreads(@RequestParam UUID token, @RequestParam Long id){
-        this.authService.checkAuth(token);
-        this.forumService.delete(id);
-    }
+
+
 }
