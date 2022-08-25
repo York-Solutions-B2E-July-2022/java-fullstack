@@ -24,8 +24,12 @@ public class ForumService {
     }
 
     public Boolean checkAuth(UUID token){
-        ResponseEntity<Void> response= this.restTemplate.getForEntity(AUTH_URL + "/checkAuth", Void.class);
-        return response.getStatusCode() == HttpStatus.OK;
+        try {
+            ResponseEntity<Void> response= this.restTemplate.getForEntity(AUTH_URL + "/checkAuth/"+ token, Void.class);
+            return true;
+        } catch (RestClientException e){
+            return false;
+        }
     }
     public void create(UUID creator, String title, String description){
         if(repo.existsByTitle(title))

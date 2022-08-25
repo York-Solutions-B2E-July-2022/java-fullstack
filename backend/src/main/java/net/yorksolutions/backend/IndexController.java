@@ -1,6 +1,7 @@
 package net.yorksolutions.backend;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class IndexController {
         this.authService.signup(username, password);
     }
     @GetMapping("/checkAuth/{token}")
-    public void checkAuth(@PathVariable UUID token){
-        this.authService.checkAuth(token);
+    public ResponseEntity<Void> checkAuth(@PathVariable UUID token){
+        return this.authService.checkAuth(token);
     }
 
 

@@ -21,11 +21,11 @@ public class AuthService {
         this.repo = repo;
         this.tokenMap = new HashMap<>();
     }
-    public UUID checkAuth(UUID token){
+    public ResponseEntity<Void> checkAuth(UUID token){
         if(!tokenMap.containsKey(token)){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return tokenMap.get(token);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     public UUID login(String username, String password){
         Optional<UserAccount> maybeUser = this.repo.findByUsernameAndPassword(username, password);
